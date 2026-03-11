@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>以闪亮之名 · 限时套装记录</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --bg-grad-from: #ffeef5;
+      --bg-grad-to: #f5f7ff;
+      --card-bg: #ffffff;
+      --primary: #ff7aa2;
+      --primary-soft: rgba(255, 122, 162, 0.12);
+      --text-main: #333333;
+      --text-sub: #666666;
+      --border-radius: 14px;
+      --shadow-soft: 0 4px 16px rgba(0,0,0,0.06);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+      background: linear-gradient(135deg, var(--bg-grad-from), var(--bg-grad-to));
+      color: var(--text-main);
+    }
+
+    header {
+      padding: 16px 14px 8px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(
+        135deg,
+        rgba(255, 238, 245, 0.96),
+        rgba(245, 247, 255, 0.96)
+      );
+      border-bottom: 1px solid rgba(255,255,255,0.7);
+    }
+
+    header h1 {
+      font-size: 20px;
+      margin: 0 0 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    header h1 span.badge {
+      font-size: 11px;
+      padding: 1px 6px;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      border: 1px solid rgba(255,122,162,0.3);
+    }
+
+    header p {
+      margin: 0;
+      font-size: 12px;
+      color: var(--text-sub);
+    }
+
+    main {
+      padding: 10px 12px 24px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .summary {
+      margin-bottom: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.8);
+      border: 1px solid rgba(255,255,255,0.9);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+      font-size: 13px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .summary-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--text-sub);
+    }
+
+    .summary-item strong {
+      color: var(--text-main);
+    }
+
+    .summary-item .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 2px;
+    }
+
+    .dot-qi { background: #ff7aa2; }
+    .dot-kuose { background: #7dc4ff; }
+    .dot-qianhuan { background: #b58cff; }
+
+    .suit-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .suit-card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(255,255,255,0.9);
+      padding: 8px 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .suit-card:hover {
+      box-shadow: 0 8px 24px rgba(255,122,162,0.18);
+    }
+
+    /* 总览区域 */
+    .suit-overview {
+      cursor: pointer;
+      user-select: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .suit-header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .suit-name {
+      font-size: 15px;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .suit-period {
+      font-size: 11px;
+      color: #999;
+      white-space: nowrap;
+    }
+
+    .suit-event {
+      font-size: 11px;
+      color: var(--text-sub);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .overview-main-line {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      justify-content: space-between;
+    }
+
+    .progress {
+      margin-top: 2px;
+      font-size: 11px;
+      color: var(--text-sub);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      width: 100%;
+    }
+
+    .progress-bar {
+      flex: 1;
+      height: 5px;
+      border-radius: 999px;
+      background: #f0f0f6;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: #f0f0f6;
+      border-radius: inherit;
+      transition: width 0.15s;
+    }
+
+    .progress-text {
+      flex-shrink: 0;
+    }
+
+    .expand-hint {
+      font-size: 10px;
+      color: #999;
+    }
+
+    /* 展开区域（在卡片内部向下展开） */
+    .detail-panel-wrapper {
+      margin-top: 6px;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition:
+        max-height 0.25s ease,
+        opacity 0.25s ease;
+    }
+
+    .detail-panel-wrapper.expanded {
+      max-height: 260px; /* 根据部件数量可适当调大 */
+      opacity: 1;
+    }
+
+    .detail-panel {
+      background: rgba(255,255,255,0.95);
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.9);
+      padding: 8px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .bulk-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .bulk-label {
+      font-size: 11px;
+      color: #999;
+    }
+
+    .bulk-buttons {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+
+    .bulk-btn {
+      font-size: 11px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      border: 1px solid #e0dfe9;
+      background: #fafafa;
+      cursor: pointer;
+      color: #666;
+      transition: background 0.12s ease, border-color 0.12s ease, transform 0.1s ease;
+    }
+
+    .bulk-btn:hover {
+      background: #fff;
+      border-color: var(--primary-soft);
+      transform: translateY(-1px);
+    }
+
+    .bulk-btn-qi {
+      border-color: #ffb7d4;
+      color: #ff7aa2;
+    }
+
+    .bulk-btn-kuose {
+      border-color: #b5d9ff;
+      color: #4a98dd;
+    }
+
+    .bulk-btn-qianhuan {
+      border-color: #d2b8ff;
+      color: #8b61d8;
+    }
+
+    .bulk-btn-clear {
+      border-color: #ddd;
+      color: #999;
+    }
+
+    .parts-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-top: 4px;
+      max-height: 180px;
+      overflow: auto;
+    }
+
+    .part-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      font-size: 12px;
+      padding: 2px 0;
+    }
+
+    .part-name {
+      flex-shrink: 0;
+      max-width: 90px;
+      color: var(--text-main);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .part-status-group {
+      flex: 1;
+      display: flex;
+      gap: 4px;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      border: 1px solid #e0dfe9;
+      background: #fafafa;
+      cursor: pointer;
+      user-select: none;
+      font-size: 11px;
+      transition: background 0.12s ease, border-color 0.12s ease, transform 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    .chip-indicator {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      border: 1px solid #cfcfd8;
+      box-sizing: border-box;
+      background: #ffffff;
+    }
+
+    .chip.checked {
+      transform: translateY(-1px);
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.05);
+    }
+
+    .chip-qi.checked {
+      border-color: #ff7aa2;
+      background: rgba(255, 230, 242, 0.95);
+    }
+    .chip-qi.checked .chip-indicator {
+      background: #ff7aa2;
+      border-color: #ff7aa2;
+    }
+
+    .chip-kuose.checked {
+      border-color: #7dc4ff;
+      background: rgba(233, 244, 255, 0.95);
+    }
+    .chip-kuose.checked .chip-indicator {
+      background: #7dc4ff;
+      border-color: #7dc4ff;
+    }
+
+    .chip-qianhuan.checked {
+      border-color: #b58cff;
+      background: rgba(242, 236, 255, 0.95);
+    }
+    .chip-qianhuan.checked .chip-indicator {
+      background: #b58cff;
+      border-color: #b58cff;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>
+    以闪亮之名 · 限时套装记录
+    <span class="badge">总览 + 下方展开部件</span>
+  </h1>
+  <p>默认只展示套装总览（name / event / period / 已获得 x/总数）；点击卡片展开下方部件面板。</p>
+</header>
+
+<main>
+  <div class="summary">
+    <div class="summary-item">
+      套装数：<strong id="sum-total-suits">0</strong>
+    </div>
+    <div class="summary-item">
+      <span class="dot dot-qi"></span>齐：<strong id="sum-qi">0</strong>
+    </div>
+    <div class="summary-item">
+      <span class="dot dot-kuose"></span>扩色：<strong id="sum-kuose">0</strong>
+    </div>
+    <div class="summary-item">
+      <span class="dot dot-qianhuan"></span>千幻：<strong id="sum-qianhuan">0</strong>
+    </div>
+  </div>
+
+  <div class="suit-list" id="suitList"></div>
+</main>
+
+<script src="data.js"></script>
+<script>
+  const STORAGE_KEY = "yishining_suit_parts_single_state_v_data";
+  let status = loadStatus();
+
+  function loadStatus() {
+    try {
+      const text = localStorage.getItem(STORAGE_KEY);
+      if (!text) return {};
+      const obj = JSON.parse(text);
+      return obj && typeof obj === "object" ? obj : {};
+    } catch {
+      return {};
+    }
+  }
+
+  function saveStatus(data) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    } catch {}
+  }
+
+  function getPartStatus(suitId, partId) {
+    if (!status[suitId]) return "none";
+    const v = status[suitId][partId];
+    if (v === "qi" || v === "kuose" || v === "qianhuan") return v;
+    return "none";
+  }
+
+  function setPartStatus(suitId, partId, value) {
+    if (!status[suitId]) status[suitId] = {};
+    if (value === "none") {
+      delete status[suitId][partId];
+    } else {
+      status[suitId][partId] = value;
+    }
+  }
+
+  function updateCardProgress(card, suit) {
+    const st = status[suit.id] || {};
+    const totalParts = suit.parts.length;
+
+    let gotParts = 0;
+    let countQi = 0, countKuose = 0, countQian = 0;
+
+    for (const part of suit.parts) {
+      const v = st[part.id];
+      if (v && v !== "none") {
+        gotParts++;
+        if (v === "qi") countQi++;
+        else if (v === "kuose") countKuose++;
+        else if (v === "qianhuan") countQian++;
+      }
+    }
+
+    const percent = totalParts > 0 ? (gotParts / totalParts) * 100 : 0;
+    const fill = card.querySelector(".progress-fill");
+    const text = card.querySelector(".progress-text");
+
+    if (fill) {
+      fill.style.width = percent + "%";
+
+      const totalGot = countQi + countKuose + countQian;
+      if (totalGot === 0) {
+        fill.style.background = "#e0e0eb";
+      } else {
+        const rateKuose = countKuose / totalGot;
+        const rateQian = countQian / totalGot;
+
+        if (countQi === totalGot && countKuose === 0 && countQian === 0) {
+          fill.style.background = "#ff7aa2";
+        } else if (countKuose === totalGot && countQi === 0 && countQian === 0) {
+          fill.style.background = "#7dc4ff";
+        } else if (countQian === totalGot && countQi === 0 && countKuose === 0) {
+          fill.style.background = "#b58cff";
+        } else if (countQian === 0 && countKuose > 0 && countQi > 0) {
+          if (rateKuose > 0.66) {
+            fill.style.background = "linear-gradient(90deg, #ffb7d4, #7dc4ff)";
+          } else if (rateKuose > 0.33) {
+            fill.style.background = "linear-gradient(90deg, #ff7aa2, #7dc4ff)";
+          } else {
+            fill.style.background = "linear-gradient(90deg, #ff7aa2, #b5d9ff)";
+          }
+        } else if (countKuose === 0 && countQian > 0 && countQi > 0) {
+          if (rateQian > 0.66) {
+            fill.style.background = "linear-gradient(90deg, #ffb7d4, #b58cff)";
+          } else if (rateQian > 0.33) {
+            fill.style.background = "linear-gradient(90deg, #ff7aa2, #b58cff)";
+          } else {
+            fill.style.background = "linear-gradient(90deg, #ff7aa2, #d2b8ff)";
+          }
+        } else {
+          fill.style.background = "linear-gradient(90deg, #ff7aa2, #7dc4ff, #b58cff)";
+        }
+      }
+    }
+
+    if (text) {
+      text.textContent = "已获得：" + gotParts + "/" + totalParts;
+    }
+  }
+
+  function updateSummary() {
+    const totalSuits = Array.isArray(suits) ? suits.length : 0;
+    let cQi = 0;
+    let cKuose = 0;
+    let cQianhuan = 0;
+
+    if (Array.isArray(suits)) {
+      for (const suit of suits) {
+        const parts = suit.parts || [];
+        if (parts.length === 0) continue;
+
+        const st = status[suit.id] || {};
+        let allQi = true;
+        let allKuose = true;
+        let allQianhuan = true;
+
+        for (const part of parts) {
+          const v = st[part.id];
+          if (v !== "qi") allQi = false;
+          if (v !== "kuose") allKuose = false;
+          if (v !== "qianhuan") allQianhuan = false;
+        }
+
+        if (allQi) {
+          cQi += 1;
+        }
+        if (allKuose) {
+          cQi += 1;
+          cKuose += 1;
+        }
+        if (allQianhuan) {
+          cQi += 1;
+          cKuose += 1;
+          cQianhuan += 1;
+        }
+      }
+    }
+
+    document.getElementById("sum-total-suits").textContent = totalSuits;
+    document.getElementById("sum-qi").textContent = cQi;
+    document.getElementById("sum-kuose").textContent = cKuose;
+    document.getElementById("sum-qianhuan").textContent = cQianhuan;
+  }
+
+  function setWholeSuitStatus(suit, value) {
+    if (!status[suit.id]) status[suit.id] = {};
+    for (const part of suit.parts || []) {
+      if (value === "none") {
+        delete status[suit.id][part.id];
+      } else {
+        status[suit.id][part.id] = value;
+      }
+    }
+    saveStatus(status);
+  }
+
+  function renderAll() {
+    const suitListEl = document.getElementById("suitList");
+    suitListEl.innerHTML = "";
+
+    if (!Array.isArray(suits) || suits.length === 0) {
+      suitListEl.textContent = "data.js 中暂无套装数据。";
+      updateSummary();
+      return;
+    }
+
+    for (const suit of suits) {
+      const card = document.createElement("div");
+      card.className = "suit-card";
+
+      // 总览
+      const overview = document.createElement("div");
+      overview.className = "suit-overview";
+
+      const headerTop = document.createElement("div");
+      headerTop.className = "suit-header-top";
+
+      const nameSpan = document.createElement("div");
+      nameSpan.className = "suit-name";
+      nameSpan.textContent = suit.name;
+
+      const periodSpan = document.createElement("div");
+      periodSpan.className = "suit-period";
+      periodSpan.textContent = suit.period || "";
+
+      headerTop.appendChild(nameSpan);
+      headerTop.appendChild(periodSpan);
+
+      const eventDiv = document.createElement("div");
+      eventDiv.className = "suit-event";
+      eventDiv.textContent = suit.event || "";
+
+      const overviewMain = document.createElement("div");
+      overviewMain.className = "overview-main-line";
+
+      const progressDiv = document.createElement("div");
+      progressDiv.className = "progress";
+      const bar = document.createElement("div");
+      bar.className = "progress-bar";
+      const fill = document.createElement("div");
+      fill.className = "progress-fill";
+      bar.appendChild(fill);
+      const pText = document.createElement("span");
+      pText.className = "progress-text";
+      pText.textContent = "已获得：0/" + (suit.parts ? suit.parts.length : 0);
+      progressDiv.appendChild(bar);
+      progressDiv.appendChild(pText);
+
+      const expandHint = document.createElement("div");
+      expandHint.className = "expand-hint";
+      expandHint.textContent = "点击展开部件 ▼";
+
+      overviewMain.appendChild(progressDiv);
+      overviewMain.appendChild(expandHint);
+
+      overview.appendChild(headerTop);
+      overview.appendChild(eventDiv);
+      overview.appendChild(overviewMain);
+
+      // 展开区域
+      const detailWrapper = document.createElement("div");
+      detailWrapper.className = "detail-panel-wrapper";
+
+      const detailPanel = document.createElement("div");
+      detailPanel.className = "detail-panel";
+
+      const bulkRow = document.createElement("div");
+      bulkRow.className = "bulk-row";
+      const bulkLabel = document.createElement("span");
+      bulkLabel.class = "bulk-label";
+      bulkLabel.textContent = "一键：";
+      const bulkBtns = document.createElement("div");
+      bulkBtns.className = "bulk-buttons";
+
+      function makeBulkBtn(label, type, extraClass) {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "bulk-btn " + extraClass;
+        btn.textContent = label;
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          setWholeSuitStatus(suit, type);
+
+          const chips = detailPanel.querySelectorAll(".part-status-group .chip");
+          chips.forEach(chip => chip.classList.remove("checked"));
+
+          if (type !== "none") {
+            for (const part of suit.parts || []) {
+              const group = detailPanel.querySelector('.part-row[data-part-id="' + part.id + '"] .part-status-group');
+              if (!group) continue;
+              const target = group.querySelector('.chip-' + type);
+              if (target) target.classList.add("checked");
+            }
+          }
+
+          updateCardProgress(card, suit);
+          updateSummary();
+        });
+        return btn;
+      }
+
+      const bulkQi = makeBulkBtn("全齐", "qi", "bulk-btn-qi");
+      const bulkKuose = makeBulkBtn("全扩色", "kuose", "bulk-btn-kuose");
+      const bulkQian = makeBulkBtn("全千幻", "qianhuan", "bulk-btn-qianhuan");
+      const bulkClear = makeBulkBtn("清空本套", "none", "bulk-btn-clear");
+
+      bulkBtns.appendChild(bulkQi);
+      bulkBtns.appendChild(bulkKuose);
+      bulkBtns.appendChild(bulkQian);
+      bulkBtns.appendChild(bulkClear);
+
+      bulkRow.appendChild(bulkLabel);
+      bulkRow.appendChild(bulkBtns);
+
+      const partsList = document.createElement("div");
+      partsList.className = "parts-list";
+
+      for (const part of suit.parts || []) {
+        const partRow = document.createElement("div");
+        partRow.className = "part-row";
+        partRow.dataset.partId = part.id;
+
+        const partName = document.createElement("div");
+        partName.className = "part-name";
+        partName.textContent = part.name;
+
+        const group = document.createElement("div");
+        group.className = "part-status-group";
+
+        const current = getPartStatus(suit.id, part.id);
+
+        function makeChip(type, label, extraClass) {
+          const chip = document.createElement("div");
+          chip.className = "chip " + extraClass;
+          if (current === type) {
+            chip.classList.add("checked");
+          }
+          const ind = document.createElement("span");
+          ind.className = "chip-indicator";
+          const txt = document.createElement("span");
+          txt.textContent = label;
+          chip.appendChild(ind);
+          chip.appendChild(txt);
+
+          chip.addEventListener("click", function (e) {
+            e.stopPropagation();
+            const now = getPartStatus(suit.id, part.id);
+            const next = (now === type) ? "none" : type;
+            setPartStatus(suit.id, part.id, next);
+            saveStatus(status);
+
+            const siblings = group.querySelectorAll(".chip");
+            siblings.forEach(c => c.classList.remove("checked"));
+            if (next !== "none") {
+              chip.classList.add("checked");
+            }
+
+            updateCardProgress(card, suit);
+            updateSummary();
+          });
+
+          return chip;
+        }
+
+        const chipQi = makeChip("qi", "齐", "chip-qi");
+        const chipKuose = makeChip("kuose", "扩色", "chip-kuose");
+        const chipQianhuan = makeChip("qianhuan", "千幻", "chip-qianhuan");
+
+        group.appendChild(chipQi);
+        group.appendChild(chipKuose);
+        group.appendChild(chipQianhuan);
+
+        partRow.appendChild(partName);
+        partRow.appendChild(group);
+        partsList.appendChild(partRow);
+      }
+
+      detailPanel.appendChild(bulkRow);
+      detailPanel.appendChild(partsList);
+      detailWrapper.appendChild(detailPanel);
+
+      // 点击总览，展开当前，收起其他
+      overview.addEventListener("click", () => {
+        const allWrappers = document.querySelectorAll(".detail-panel-wrapper");
+        const isExpanded = detailWrapper.classList.contains("expanded");
+        allWrappers.forEach(w => w.classList.remove("expanded"));
+        if (!isExpanded) {
+          detailWrapper.classList.add("expanded");
+        }
+      });
+
+      card.appendChild(overview);
+      card.appendChild(detailWrapper);
+      suitListEl.appendChild(card);
+
+      updateCardProgress(card, suit);
+    }
+
+    updateSummary();
+  }
+
+  renderAll();
+</script>
+</body>
+</html>
