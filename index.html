@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <title>以闪亮之名 · 限时套装记录</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>以闪亮之名 · 限时套装记录（多账号）</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <style>
     :root {
       --bg-grad-from: #ffeef5;
@@ -16,380 +16,393 @@
       --border-radius: 14px;
       --shadow-soft: 0 4px 16px rgba(0,0,0,0.06);
     }
-
     * { box-sizing: border-box; }
-
     body {
-      margin: 0;
-      font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
-      background: linear-gradient(135deg, var(--bg-grad-from), var(--bg-grad-to));
-      color: var(--text-main);
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+      background:linear-gradient(135deg,var(--bg-grad-from),var(--bg-grad-to));
+      color:var(--text-main);
     }
-
     header {
-      padding: 16px 14px 8px;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      backdrop-filter: blur(10px);
-      background: linear-gradient(
-        135deg,
-        rgba(255, 238, 245, 0.96),
-        rgba(245, 247, 255, 0.96)
-      );
-      border-bottom: 1px solid rgba(255,255,255,0.7);
+      padding:16px 14px 8px;
+      position:sticky;top:0;z-index:10;
+      backdrop-filter:blur(10px);
+      background:linear-gradient(135deg,rgba(255,238,245,0.96),rgba(245,247,255,0.96));
+      border-bottom:1px solid rgba(255,255,255,0.7);
     }
-
     header h1 {
-      font-size: 20px;
-      margin: 0 0 4px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      font-size:20px;margin:0 0 4px;
+      display:flex;align-items:center;gap:6px;
     }
-
     header h1 span.badge {
-      font-size: 11px;
-      padding: 1px 6px;
-      border-radius: 999px;
-      background: var(--primary-soft);
-      color: var(--primary);
-      border: 1px solid rgba(255,122,162,0.3);
+      font-size:11px;padding:1px 6px;border-radius:999px;
+      background:var(--primary-soft);color:var(--primary);
+      border:1px solid rgba(255,122,162,0.3);
     }
-
-    header p {
-      margin: 0;
-      font-size: 12px;
-      color: var(--text-sub);
-    }
-
+    header p {margin:0;font-size:12px;color:var(--text-sub);}
     main {
-      padding: 10px 12px 24px;
-      max-width: 960px;
-      margin: 0 auto;
+      padding:10px 12px 24px;
+      max-width:960px;margin:0 auto;
     }
-
+    .search-bar {
+      margin:8px 0 6px;
+      display:flex;flex-wrap:wrap;align-items:center;gap:6px;
+      font-size:12px;color:var(--text-sub);
+    }
+    .account-select {
+      font-size:12px;padding:3px 6px;
+      border-radius:999px;border:1px solid #ddd;
+      background:#fff;
+    }
+    .search-input {
+      flex:1;min-width:120px;padding:4px 8px;
+      border-radius:999px;border:1px solid #ddd;font-size:12px;outline:none;
+    }
+    .search-input:focus {
+      border-color:var(--primary);
+      box-shadow:0 0 0 2px rgba(255,122,162,0.15);
+      background:#fff;
+    }
+    .toolbar-btn {
+      font-size:11px;padding:3px 8px;
+      border-radius:999px;border:1px solid #e0dfe9;
+      background:#fff;cursor:pointer;color:#777;white-space:nowrap;
+    }
+    .toolbar-btn:hover {
+      border-color:var(--primary-soft);color:var(--primary);
+      box-shadow:0 0 0 1px rgba(255,122,162,0.1);
+    }
     .summary {
-      margin-bottom: 10px;
-      padding: 10px 12px;
-      border-radius: 12px;
-      background: rgba(255,255,255,0.8);
-      border: 1px solid rgba(255,255,255,0.9);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
-      font-size: 13px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-      justify-content: space-between;
+      margin-bottom:10px;padding:10px 12px;
+      border-radius:12px;background:rgba(255,255,255,0.8);
+      border:1px solid rgba(255,255,255,0.9);
+      box-shadow:0 2px 10px rgba(0,0,0,0.03);
+      font-size:13px;display:flex;flex-wrap:wrap;
+      gap:10px;align-items:center;justify-content:space-between;
     }
-
     .summary-item {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      color: var(--text-sub);
+      display:flex;align-items:center;gap:4px;color:var(--text-sub);
     }
-
-    .summary-item strong {
-      color: var(--text-main);
-    }
-
+    .summary-item strong {color:var(--text-main);}
     .summary-item .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      display: inline-block;
-      margin-right: 2px;
+      width:8px;height:8px;border-radius:50%;
+      display:inline-block;margin-right:2px;
     }
-
-    .dot-qi { background: #ff7aa2; }
-    .dot-kuose { background: #7dc4ff; }
-    .dot-qianhuan { background: #b58cff; }
-
+    .dot-qi{background:#ff7aa2;}
+    .dot-kuose{background:#7dc4ff;}
+    .dot-qianhuan{background:#b58cff;}
     .suit-list {
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 10px;
     }
 
     .suit-card {
-      background: var(--card-bg);
-      border-radius: var(--border-radius);
-      box-shadow: var(--shadow-soft);
-      border: 1px solid rgba(255,255,255,0.9);
-      padding: 8px 10px;
-      position: relative;
-      overflow: hidden;
+      background:var(--card-bg);
+      border-radius:var(--border-radius);
+      box-shadow:var(--shadow-soft);
+      border:1px solid rgba(255,255,255,0.9);
+      padding:8px 10px;position:relative;overflow:hidden;
     }
-
-    .suit-card:hover {
-      box-shadow: 0 8px 24px rgba(255,122,162,0.18);
-    }
-
-    /* 总览区域 */
+    .suit-card:hover {box-shadow:0 8px 24px rgba(255,122,162,0.18);}
     .suit-overview {
-      cursor: pointer;
-      user-select: none;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
+      cursor:pointer;user-select:none;
+      display:flex;flex-direction:column;gap:6px;
     }
-
     .suit-header-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 6px;
+      display:flex;justify-content:space-between;align-items:center;gap:6px;
     }
-
     .suit-name {
-      font-size: 15px;
-      font-weight: 600;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      font-size:15px;font-weight:600;
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
     }
-
-    .suit-period {
-      font-size: 11px;
-      color: #999;
-      white-space: nowrap;
-    }
-
+    .suit-period {font-size:11px;color:#999;white-space:nowrap;}
     .suit-event {
-      font-size: 11px;
-      color: var(--text-sub);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      font-size:11px;color:var(--text-sub);
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
     }
-
     .overview-main-line {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 6px;
-      justify-content: space-between;
+      display:flex;flex-wrap:wrap;align-items:center;
+      gap:6px;justify-content:space-between;
     }
-
     .progress {
-      margin-top: 2px;
+      margin-top:2px;font-size:11px;color:var(--text-sub);
+      display:flex;align-items:center;gap:6px;width:100%;
+    }
+    .suit-stats-line {
+      margin-top: 4px;
       font-size: 11px;
       color: var(--text-sub);
       display: flex;
-      align-items: center;
-      gap: 6px;
-      width: 100%;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .suit-stats-line span {
+      white-space: nowrap;
     }
 
     .progress-bar {
+      flex:1;height:5px;border-radius:999px;
+      background:#f0f0f6;overflow:hidden;
+    }
+    .progress-fill {
+      height:100%;width:0%;background:#f0f0f6;
+      border-radius:inherit;transition:width 0.15s;
+    }
+    .progress-text {flex-shrink:0;}
+    .expand-hint {font-size:10px;color:#999;}
+    .detail-panel-wrapper {
+      margin-top:6px;overflow:hidden;
+      max-height:0;opacity:0;
+      transition:max-height 0.25s ease,opacity 0.25s ease;
+    }
+    .detail-panel-wrapper.expanded {
+      max-height:260px;opacity:1;
+    }
+    .detail-panel {
+      background:rgba(255,255,255,0.95);
+      border-radius:10px;border:1px solid rgba(255,255,255,0.9);
+      padding:8px 8px;display:flex;flex-direction:column;gap:6px;
+    }
+    .bulk-row {
+      display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+    }
+    .bulk-label {font-size:11px;color:#999;}
+    .bulk-buttons {
+      display:flex;gap:4px;flex-wrap:wrap;
+    }
+    .bulk-btn {
+      font-size:11px;padding:2px 6px;border-radius:999px;
+      border:1px solid #e0dfe9;background:#fafafa;
+      cursor:pointer;color:#666;
+      transition:background 0.12s ease,border-color 0.12s ease,transform 0.1s ease;
+    }
+    .bulk-btn:hover {
+      background:#fff;border-color:var(--primary-soft);
+      transform:translateY(-1px);
+    }
+    .bulk-btn-qi{border-color:#ffb7d4;color:#ff7aa2;}
+    .bulk-btn-kuose{border-color:#b5d9ff;color:#4a98dd;}
+    .bulk-btn-qianhuan{border-color:#d2b8ff;color:#8b61d8;}
+    .bulk-btn-clear{border-color:#ddd;color:#999;}
+    .parts-list {
+      display:flex;flex-direction:column;gap:4px;
+      margin-top:4px;max-height:180px;overflow:auto;
+    }
+    .part-row {
+      display:flex;align-items:center;justify-content:space-between;
+      gap:6px;font-size:12px;padding:2px 0;
+    }
+    .part-name {
+      flex-shrink:0;max-width:90px;color:var(--text-main);
+      overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+    }
+    .part-status-group {
+      flex:1;display:flex;gap:4px;justify-content:flex-end;flex-wrap:wrap;
+    }
+    .chip {
+      display:inline-flex;align-items:center;gap:3px;
+      padding:2px 6px;border-radius:999px;
+      border:1px solid #e0dfe9;background:#fafafa;
+      cursor:pointer;user-select:none;font-size:11px;
+      transition:background 0.12s ease,border-color 0.12s ease,transform 0.12s ease,box-shadow 0.12s ease;
+    }
+    .chip-indicator {
+      width:9px;height:9px;border-radius:50%;
+      border:1px solid #cfcfd8;box-sizing:border-box;background:#ffffff;
+    }
+    .chip.checked {
+      transform:translateY(-1px);
+      box-shadow:0 0 0 1px rgba(0,0,0,0.05);
+    }
+    .chip-qi.checked {border-color:#ff7aa2;background:rgba(255,230,242,0.95);}
+    .chip-qi.checked .chip-indicator {background:#ff7aa2;border-color:#ff7aa2;}
+    .chip-kuose.checked {border-color:#7dc4ff;background:rgba(233,244,255,0.95);}
+    .chip-kuose.checked .chip-indicator {background:#7dc4ff;border-color:#7dc4ff;}
+    .chip-qianhuan.checked {border-color:#b58cff;background:rgba(242,236,255,0.95);}
+    .chip-qianhuan.checked .chip-indicator {background:#b58cff;border-color:#b58cff;}
+
+    .dialog-mask {
+      position:fixed;inset:0;background:rgba(0,0,0,0.35);
+      display:none;align-items:center;justify-content:center;z-index:999;
+    }
+    .dialog-inner {
+      background:#fff;border-radius:10px;
+      max-width:760px;width:92%;
+      max-height:90%;padding:10px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.2);
+      display:flex;flex-direction:column;gap:8px;
+    }
+    .dialog-header {
+      display:flex;justify-content:space-between;align-items:center;
+      font-size:13px;color:#555;
+    }
+    .dialog-header button {
+      font-size:12px;border:none;background:none;
+      cursor:pointer;color:#999;
+    }
+    .dialog-header button:hover {color:#555;}
+    .dialog-textarea {
+      width:100%;flex:1;min-height:200px;
+      font-size:12px;font-family:Menlo,Consolas,monospace;
+      border-radius:6px;border:1px solid #ddd;
+      padding:6px;resize:vertical;outline:none;background:#fafafa;
+    }
+    .dialog-textarea:focus {
+      border-color:var(--primary);
+      box-shadow:0 0 0 2px rgba(255,122,162,0.15);
+      background:#fff;
+    }
+    /* 导出图片专用样式 */
+    .export-root {
+      width: 900px;                      /* 导出图片宽度 */
+      padding: 16px 20px 20px;
+      background: linear-gradient(135deg,#ffeef5,#f5f7ff);
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+      color: var(--text-main);
+      box-sizing: border-box;
+    }
+
+    .export-header {
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .export-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .export-subtitle {
+      font-size: 12px;
+      color: var(--text-sub);
+    }
+
+    .export-summary-bar {
+      margin-bottom: 12px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(255,255,255,0.95);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 16px;
+      font-size: 12px;
+    }
+
+    .export-summary-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .export-summary-item strong {
+      font-weight: 600;
+    }
+
+    .export-suit-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);  /* 两列 */
+      gap: 10px 12px;
+    }
+
+    .export-suit-card {
+      background: #ffffff;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.95);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      padding: 8px 10px;
+      box-sizing: border-box;
+    }
+
+    .export-suit-name {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .export-suit-meta {
+      font-size: 11px;
+      color: var(--text-sub);
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .export-progress-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--text-sub);
+      margin-bottom: 4px;
+    }
+
+    .export-progress-bar {
       flex: 1;
       height: 5px;
       border-radius: 999px;
-      background: #f0f0f6;
+      background:#f0f0f6;
       overflow: hidden;
     }
 
-    .progress-fill {
+    .export-progress-fill {
       height: 100%;
-      width: 0%;
-      background: #f0f0f6;
+      width: 0;
       border-radius: inherit;
-      transition: width 0.15s;
     }
 
-    .progress-text {
-      flex-shrink: 0;
-    }
-
-    .expand-hint {
-      font-size: 10px;
-      color: #999;
-    }
-
-    /* 展开区域（在卡片内部向下展开） */
-    .detail-panel-wrapper {
-      margin-top: 6px;
-      overflow: hidden;
-      max-height: 0;
-      opacity: 0;
-      transition:
-        max-height 0.25s ease,
-        opacity 0.25s ease;
-    }
-
-    .detail-panel-wrapper.expanded {
-      max-height: 260px; /* 根据部件数量可适当调大 */
-      opacity: 1;
-    }
-
-    .detail-panel {
-      background: rgba(255,255,255,0.95);
-      border-radius: 10px;
-      border: 1px solid rgba(255,255,255,0.9);
-      padding: 8px 8px;
+    .export-stats-line {
+      font-size: 11px;
+      color: var(--text-sub);
       display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .bulk-row {
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      gap: 10px;
       flex-wrap: wrap;
     }
 
-    .bulk-label {
-      font-size: 11px;
-      color: #999;
-    }
-
-    .bulk-buttons {
-      display: flex;
-      gap: 4px;
-      flex-wrap: wrap;
-    }
-
-    .bulk-btn {
-      font-size: 11px;
-      padding: 2px 6px;
-      border-radius: 999px;
-      border: 1px solid #e0dfe9;
-      background: #fafafa;
-      cursor: pointer;
-      color: #666;
-      transition: background 0.12s ease, border-color 0.12s ease, transform 0.1s ease;
-    }
-
-    .bulk-btn:hover {
-      background: #fff;
-      border-color: var(--primary-soft);
-      transform: translateY(-1px);
-    }
-
-    .bulk-btn-qi {
-      border-color: #ffb7d4;
-      color: #ff7aa2;
-    }
-
-    .bulk-btn-kuose {
-      border-color: #b5d9ff;
-      color: #4a98dd;
-    }
-
-    .bulk-btn-qianhuan {
-      border-color: #d2b8ff;
-      color: #8b61d8;
-    }
-
-    .bulk-btn-clear {
-      border-color: #ddd;
-      color: #999;
-    }
-
-    .parts-list {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      margin-top: 4px;
-      max-height: 180px;
-      overflow: auto;
-    }
-
-    .part-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 6px;
-      font-size: 12px;
-      padding: 2px 0;
-    }
-
-    .part-name {
-      flex-shrink: 0;
-      max-width: 90px;
-      color: var(--text-main);
-      overflow: hidden;
-      text-overflow: ellipsis;
+    .export-stats-line span {
       white-space: nowrap;
     }
 
-    .part-status-group {
-      flex: 1;
-      display: flex;
-      gap: 4px;
-      justify-content: flex-end;
-      flex-wrap: wrap;
+    /* 小字说明（可选） */
+    .export-footer-note {
+      margin-top: 8px;
+      font-size: 10px;
+      color: #999;
+      text-align: right;
     }
 
-    .chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 3px;
-      padding: 2px 6px;
-      border-radius: 999px;
-      border: 1px solid #e0dfe9;
-      background: #fafafa;
-      cursor: pointer;
-      user-select: none;
-      font-size: 11px;
-      transition: background 0.12s ease, border-color 0.12s ease, transform 0.12s ease, box-shadow 0.12s ease;
-    }
-
-    .chip-indicator {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      border: 1px solid #cfcfd8;
-      box-sizing: border-box;
-      background: #ffffff;
-    }
-
-    .chip.checked {
-      transform: translateY(-1px);
-      box-shadow: 0 0 0 1px rgba(0,0,0,0.05);
-    }
-
-    .chip-qi.checked {
-      border-color: #ff7aa2;
-      background: rgba(255, 230, 242, 0.95);
-    }
-    .chip-qi.checked .chip-indicator {
-      background: #ff7aa2;
-      border-color: #ff7aa2;
-    }
-
-    .chip-kuose.checked {
-      border-color: #7dc4ff;
-      background: rgba(233, 244, 255, 0.95);
-    }
-    .chip-kuose.checked .chip-indicator {
-      background: #7dc4ff;
-      border-color: #7dc4ff;
-    }
-
-    .chip-qianhuan.checked {
-      border-color: #b58cff;
-      background: rgba(242, 236, 255, 0.95);
-    }
-    .chip-qianhuan.checked .chip-indicator {
-      background: #b58cff;
-      border-color: #b58cff;
-    }
   </style>
 </head>
 <body>
 <header>
   <h1>
     以闪亮之名 · 限时套装记录
-    <span class="badge">总览 + 下方展开部件</span>
   </h1>
-  <p>默认只展示套装总览（name / event / period / 已获得 x/总数）；点击卡片展开下方部件面板。</p>
+  <p>可维护多个账号；按套装名搜索；点击卡片展开部件；支持导出文字版详情和 JSON 存档。</p>
 </header>
 
 <main>
+  <div class="search-bar">
+    <span>账号：</span>
+    <select id="accountSelect" class="account-select"></select>
+    <button id="addAccountBtn" class="toolbar-btn">新建</button>
+    <button id="renameAccountBtn" class="toolbar-btn">重命名</button>
+    <button id="deleteAccountBtn" class="toolbar-btn">删除</button>
+
+    <span>搜索套装：</span>
+    <input id="searchInput" class="search-input" type="text" placeholder="输入套装名称的一部分..." />
+    <button id="exportDetailBtn" class="toolbar-btn">导出汇总详情</button>
+    <button id="exportImageBtn" class="toolbar-btn">导出图片</button>
+    <button id="exportJsonBtn" class="toolbar-btn">导出数据(JSON)</button>
+    <button id="importJsonBtn" class="toolbar-btn">导入数据(JSON)</button>
+  </div>
+
   <div class="summary">
     <div class="summary-item">
       套装数：<strong id="sum-total-suits">0</strong>
@@ -407,13 +420,61 @@
 
   <div class="suit-list" id="suitList"></div>
 </main>
+<!-- 导出专用隐藏区域（不会显示在页面上） -->
+<div id="exportAreaWrapper" style="position:absolute;left:-99999px;top:-99999px;">
+  <div id="exportArea"></div>
+</div>
+
+<div id="textDialog" class="dialog-mask">
+  <div class="dialog-inner">
+    <div class="dialog-header">
+      <span id="textDialogTitle">文字版详情</span>
+      <button id="textDialogCloseBtn">关闭</button>
+    </div>
+    <textarea id="textDialogTextarea" class="dialog-textarea" readonly></textarea>
+  </div>
+</div>
+
+<div id="jsonDialog" class="dialog-mask">
+  <div class="dialog-inner">
+    <div class="dialog-header">
+      <span id="jsonDialogTitle">JSON 数据</span>
+      <button id="jsonDialogCloseBtn">关闭</button>
+    </div>
+    <textarea id="jsonTextarea" class="dialog-textarea"></textarea>
+    <div style="text-align:right;font-size:12px;">
+      <button id="jsonDialogConfirmBtn" class="toolbar-btn">确定</button>
+    </div>
+  </div>
+</div>
 
 <script src="data.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script>
-  const STORAGE_KEY = "yishining_suit_parts_single_state_v_data";
-  let status = loadStatus();
+  const STORAGE_KEY = "yishining_multi_account_status_v1";
 
-  function loadStatus() {
+  let allStatus = loadAllStatus();   // { accountName: statusObj }
+  let currentAccount = null;
+  let status = {};
+  let currentFilter = "";
+  let jsonDialogMode = "export";
+
+  // 导出用：只返回简称，没有简称就用原名
+  function getSuitExportName(suit) {
+    return suit.shortName || suit.name || "";
+  }
+
+// 总览用：原名【简称】；没有简称就用原名
+  function getSuitDisplayName(suit) {
+    const fullName = suit.name || "";
+    const shortName = suit.shortName || "";
+    if (shortName && shortName !== fullName) {
+      return `${fullName}【${shortName}】`;
+    }
+    return fullName;
+  }
+
+  function loadAllStatus() {
     try {
       const text = localStorage.getItem(STORAGE_KEY);
       if (!text) return {};
@@ -423,11 +484,13 @@
       return {};
     }
   }
-
-  function saveStatus(data) {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    } catch {}
+  function saveAllStatus() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(allStatus)); } catch {}
+  }
+  function saveStatusForCurrentAccount() {
+    if (!currentAccount) return;
+    allStatus[currentAccount] = status;
+    saveAllStatus();
   }
 
   function getPartStatus(suitId, partId) {
@@ -436,7 +499,6 @@
     if (v === "qi" || v === "kuose" || v === "qianhuan") return v;
     return "none";
   }
-
   function setPartStatus(suitId, partId, value) {
     if (!status[suitId]) status[suitId] = {};
     if (value === "none") {
@@ -446,10 +508,20 @@
     }
   }
 
+  function setWholeSuitStatus(suit, value) {
+    if (!status[suit.id]) status[suit.id] = {};
+    for (const part of suit.parts || []) {
+      if (value === "none") {
+        delete status[suit.id][part.id];
+      } else {
+        status[suit.id][part.id] = value;
+      }
+    }
+  }
+
   function updateCardProgress(card, suit) {
     const st = status[suit.id] || {};
     const totalParts = suit.parts.length;
-
     let gotParts = 0;
     let countQi = 0, countKuose = 0, countQian = 0;
 
@@ -469,14 +541,12 @@
 
     if (fill) {
       fill.style.width = percent + "%";
-
       const totalGot = countQi + countKuose + countQian;
       if (totalGot === 0) {
         fill.style.background = "#e0e0eb";
       } else {
         const rateKuose = countKuose / totalGot;
         const rateQian = countQian / totalGot;
-
         if (countQi === totalGot && countKuose === 0 && countQian === 0) {
           fill.style.background = "#ff7aa2";
         } else if (countKuose === totalGot && countQi === 0 && countQian === 0) {
@@ -485,102 +555,360 @@
           fill.style.background = "#b58cff";
         } else if (countQian === 0 && countKuose > 0 && countQi > 0) {
           if (rateKuose > 0.66) {
-            fill.style.background = "linear-gradient(90deg, #ffb7d4, #7dc4ff)";
+            fill.style.background = "linear-gradient(90deg,#ffb7d4,#7dc4ff)";
           } else if (rateKuose > 0.33) {
-            fill.style.background = "linear-gradient(90deg, #ff7aa2, #7dc4ff)";
+            fill.style.background = "linear-gradient(90deg,#ff7aa2,#7dc4ff)";
           } else {
-            fill.style.background = "linear-gradient(90deg, #ff7aa2, #b5d9ff)";
+            fill.style.background = "linear-gradient(90deg,#ff7aa2,#b5d9ff)";
           }
         } else if (countKuose === 0 && countQian > 0 && countQi > 0) {
           if (rateQian > 0.66) {
-            fill.style.background = "linear-gradient(90deg, #ffb7d4, #b58cff)";
+            fill.style.background = "linear-gradient(90deg,#ffb7d4,#b58cff)";
           } else if (rateQian > 0.33) {
-            fill.style.background = "linear-gradient(90deg, #ff7aa2, #b58cff)";
+            fill.style.background = "linear-gradient(90deg,#ff7aa2,#b58cff)";
           } else {
-            fill.style.background = "linear-gradient(90deg, #ff7aa2, #d2b8ff)";
+            fill.style.background = "linear-gradient(90deg,#ff7aa2,#d2b8ff)";
           }
         } else {
-          fill.style.background = "linear-gradient(90deg, #ff7aa2, #7dc4ff, #b58cff)";
+          fill.style.background = "linear-gradient(90deg,#ff7aa2,#7dc4ff,#b58cff)";
         }
       }
     }
-
     if (text) {
       text.textContent = "已获得：" + gotParts + "/" + totalParts;
     }
+
+    // === 新增：在卡片上显示齐/扩色/千幻数量 ===
+    let statsLine = card.querySelector(".suit-stats-line");
+    if (!statsLine) {
+      statsLine = document.createElement("div");
+      statsLine.className = "suit-stats-line";
+      // 插在 progress 下方
+      const progressDiv = card.querySelector(".progress");
+      if (progressDiv && progressDiv.parentNode) {
+        progressDiv.parentNode.insertBefore(statsLine, progressDiv.nextSibling);
+      } else {
+        card.appendChild(statsLine);
+      }
+    }
+    statsLine.innerHTML = `
+      <span>齐：${countQi}</span>
+      <span>扩色：${countKuose}</span>
+      <span>千幻：${countQian}</span>
+    `;
   }
+  // 计算某套装的统计信息（齐/扩色/千幻数量 + 总部件 + 获取数）
+  // 计算某套装的统计信息（齐/扩色/千幻数量 + 总部件 + 获取数）——递进逻辑版
+  function calcSuitStats(suit) {
+    const st = status[suit.id] || {};
+    const totalParts = suit.parts.length;
+    let gotParts = 0;
+    let countQi = 0, countKuose = 0, countQian = 0;
 
-  function updateSummary() {
-    const totalSuits = Array.isArray(suits) ? suits.length : 0;
-    let cQi = 0;
-    let cKuose = 0;
-    let cQianhuan = 0;
+    for (const part of suit.parts) {
+      const v = st[part.id];
 
-    if (Array.isArray(suits)) {
-      for (const suit of suits) {
-        const parts = suit.parts || [];
-        if (parts.length === 0) continue;
+      if (v && v !== "none") {
+        gotParts++;
 
-        const st = status[suit.id] || {};
-        let allQi = true;
-        let allKuose = true;
-        let allQianhuan = true;
-
-        for (const part of parts) {
-          const v = st[part.id];
-          if (v !== "qi") allQi = false;
-          if (v !== "kuose") allKuose = false;
-          if (v !== "qianhuan") allQianhuan = false;
-        }
-
-        if (allQi) {
-          cQi += 1;
-        }
-        if (allKuose) {
-          cQi += 1;
-          cKuose += 1;
-        }
-        if (allQianhuan) {
-          cQi += 1;
-          cKuose += 1;
-          cQianhuan += 1;
+        // 递进逻辑：千幻 ⇒ 扩色 ⇒ 齐；扩色 ⇒ 齐
+        if (v === "qianhuan") {
+          countQian++;
+          countKuose++;
+          countQi++;
+        } else if (v === "kuose") {
+          countKuose++;
+          countQi++;
+        } else if (v === "qi") {
+          countQi++;
         }
       }
     }
 
+    const percent = totalParts > 0 ? (gotParts / totalParts) * 100 : 0;
+    return { totalParts, gotParts, countQi, countKuose, countQian, percent };
+  }
+
+
+// 根据数量比例，给导出进度条生成一个背景色 / 渐变（和你原来的逻辑类似）
+  function getProgressFillStyle(countQi, countKuose, countQian) {
+    const totalGot = countQi + countKuose + countQian;
+    if (totalGot === 0) {
+      return "#e0e0eb";
+    }
+    const rateKuose = countKuose / totalGot;
+    const rateQian = countQian / totalGot;
+
+    if (countQi === totalGot && countKuose === 0 && countQian === 0) {
+      return "#ff7aa2";
+    } else if (countKuose === totalGot && countQi === 0 && countQian === 0) {
+      return "#7dc4ff";
+    } else if (countQian === totalGot && countQi === 0 && countKuose === 0) {
+      return "#b58cff";
+    } else if (countQian === 0 && countKuose > 0 && countQi > 0) {
+      if (rateKuose > 0.66) {
+        return "linear-gradient(90deg,#ffb7d4,#7dc4ff)";
+      } else if (rateKuose > 0.33) {
+        return "linear-gradient(90deg,#ff7aa2,#7dc4ff)";
+      } else {
+        return "linear-gradient(90deg,#ff7aa2,#b5d9ff)";
+      }
+    } else if (countKuose === 0 && countQian > 0 && countQi > 0) {
+      if (rateQian > 0.66) {
+        return "linear-gradient(90deg,#ffb7d4,#b58cff)";
+      } else if (rateQian > 0.33) {
+        return "linear-gradient(90deg,#ff7aa2,#b58cff)";
+      } else {
+        return "linear-gradient(90deg,#ff7aa2,#d2b8ff)";
+      }
+    } else {
+      return "linear-gradient(90deg,#ff7aa2,#7dc4ff,#b58cff)";
+    }
+  }
+  // 构建导出专用 DOM（只包含总览信息）
+  function buildExportArea() {
+    const wrapper = document.getElementById("exportArea");
+    wrapper.innerHTML = "";
+
+    if (!Array.isArray(suits) || suits.length === 0) {
+      wrapper.textContent = "暂无套装数据";
+      return;
+    }
+
+    const filtered = getFilteredSuits(); // 和页面一样按搜索过滤
+    if (!filtered.length) {
+      wrapper.textContent = "没有匹配的套装。";
+      return;
+    }
+
+    // 统计整个账号的齐/扩/千（按套装）
+      // 统计本页所有套装的齐/扩/千 —— 按“部件数量”统计，递进逻辑
+    const suitCount = filtered.length;
+
+    let fullQiSuitCount = 0;       // 全齐
+    let fullKuoseSuitCount = 0;    // 全扩
+    let fullQianhuanSuitCount = 0; // 全千幻
+
+    filtered.forEach(suit => {
+      const parts = suit.parts || [];
+      if (!parts.length) return;
+
+      const st = status[suit.id] || {};
+
+    // 标记这套是否满足各层级条件
+      let isAllQianhuan = true; // 每个部件都是 qianhuan
+      let isAllKuoseLevel = true; // 每个部件都是 kuose 或 qianhuan
+      let isAllQiLevel = true; // 每个部件都是 qi / kuose / qianhuan
+
+      for (const part of parts) {
+        const v = st[part.id];
+      
+        // 未标任何状态，或者是未知值，视为未达“齐”级别
+        if (v !== "qi" && v !== "kuose" && v !== "qianhuan") {
+          isAllQiLevel = false;
+          isAllKuoseLevel = false;
+          isAllQianhuan = false;
+          break; // 已经不可能是任何“全齐/全扩/全千幻”，提前结束
+        }
+      
+        if (v !== "qianhuan") {
+          isAllQianhuan = false;
+        }
+        if (v !== "kuose" && v !== "qianhuan") {
+          isAllKuoseLevel = false;
+        }
+        // 对 isAllQiLevel 的判断在上面 “未知值” 分支已覆盖
+      }
+    
+      // 根据你给的优先级：全千幻 > 全扩 > 全齐，互斥分类
+      if (isAllQianhuan) {
+        fullQianhuanSuitCount++;
+      } else if (isAllKuoseLevel) {
+        fullKuoseSuitCount++;
+      } else if (isAllQiLevel) {
+        fullQiSuitCount++;
+      }
+    });
+
+    const root = document.createElement("div");
+    root.className = "export-root";
+
+    // 头部
+    const header = document.createElement("div");
+    header.className = "export-header";
+
+    const titleEl = document.createElement("div");
+    titleEl.className = "export-title";
+    titleEl.textContent = "以闪亮之名 · 限时套装总览";
+
+    const subtitleEl = document.createElement("div");
+    subtitleEl.className = "export-subtitle";
+    const now = new Date();
+    const dateStr = now.getFullYear()+"-"+String(now.getMonth()+1).padStart(2,"0")+"-"+String(now.getDate()).padStart(2,"0");
+    subtitleEl.textContent = `日期：${dateStr}`;
+
+    header.appendChild(titleEl);
+    header.appendChild(subtitleEl);
+    root.appendChild(header);
+
+    // 汇总条
+    const summaryBar = document.createElement("div");
+    summaryBar.className = "export-summary-bar";
+
+    const item1 = document.createElement("div");
+    item1.className = "export-summary-item";
+    item1.innerHTML = `ID：<strong>${currentAccount}</strong>`;
+    summaryBar.appendChild(item1);
+
+    const textPieces = [];
+    if (fullQiSuitCount > 0) {
+      textPieces.push(`全齐：<strong>${fullQiSuitCount}</strong> 套`);
+    }
+    if (fullKuoseSuitCount > 0) {
+      textPieces.push(`全扩：<strong>${fullKuoseSuitCount}</strong> 套`);
+    }
+    if (fullQianhuanSuitCount > 0) {
+      textPieces.push(`全千幻：<strong>${fullQianhuanSuitCount}</strong> 套`);
+    }
+
+    if (textPieces.length > 0) {
+      const item2 = document.createElement("div");
+      item2.className = "export-summary-item";
+      item2.innerHTML = textPieces.join(" / ");
+      summaryBar.appendChild(item2);
+    }
+
+    root.appendChild(summaryBar);
+
+    // 套装网格
+    const grid = document.createElement("div");
+    grid.className = "export-suit-grid";
+
+    filtered.forEach(suit => {
+      const parts = suit.parts || [];
+      if (!parts.length) return;
+
+      const { totalParts, gotParts, countQi, countKuose, countQian, percent } = calcSuitStats(suit);
+      const card = document.createElement("div");
+      card.className = "export-suit-card";
+
+      const nameEl = document.createElement("div");
+      nameEl.className = "export-suit-name";
+      nameEl.textContent = getSuitDisplayName(suit); // 简称/原名
+
+      const metaEl = document.createElement("div");
+      metaEl.className = "export-suit-meta";
+      const eventText = document.createElement("span");
+      eventText.textContent = suit.event || "";
+      metaEl.appendChild(eventText);
+
+      const progressRow = document.createElement("div");
+      progressRow.className = "export-progress-row";
+      const bar = document.createElement("div");
+      bar.className = "export-progress-bar";
+      const fill = document.createElement("div");
+      fill.className = "export-progress-fill";
+      fill.style.width = percent + "%";
+      fill.style.background = getProgressFillStyle(countQi, countKuose, countQian);
+      bar.appendChild(fill);
+      const textSpan = document.createElement("span");
+      textSpan.textContent = `已获得：${gotParts}/${totalParts}`;
+      progressRow.appendChild(bar);
+      progressRow.appendChild(textSpan);
+
+      const statsLine = document.createElement("div");
+      statsLine.className = "export-stats-line";
+      statsLine.innerHTML = `
+        <span>齐：${countQi}</span>
+        <span>扩色：${countKuose}</span>
+        <span>千幻：${countQian}</span>
+      `;
+
+      card.appendChild(nameEl);
+      card.appendChild(metaEl);
+      card.appendChild(progressRow);
+      card.appendChild(statsLine);
+      grid.appendChild(card);
+    });
+
+    root.appendChild(grid);
+
+    const footerNote = document.createElement("div");
+    footerNote.className = "export-footer-note";
+    footerNote.textContent = "※ 本图片为玩家自用记录，不代表游戏官方统计。";
+
+    root.appendChild(footerNote);
+
+    wrapper.appendChild(root);
+  }
+
+
+
+  function updateSummary(filteredSuits) {
+    const source = Array.isArray(filteredSuits) ? filteredSuits : suits;
+    const totalSuits = source.length;
+    let cQi = 0;
+    let cKuose = 0;
+    let cQianhuan = 0;
+    for (const suit of source) {
+      const parts = suit.parts || [];
+      if (parts.length === 0) continue;
+      const st = status[suit.id] || {};
+      let allQi = true, allKuose = true, allQianhuan = true;
+      for (const part of parts) {
+        const v = st[part.id];
+        if (v !== "qi") allQi = false;
+        if (v !== "kuose") allKuose = false;
+        if (v !== "qianhuan") allQianhuan = false;
+      }
+      if (allQi) cQi += 1;
+      if (allKuose) { cQi += 1; cKuose += 1; }
+      if (allQianhuan) { cQi += 1; cKuose += 1; cQianhuan += 1; }
+    }
     document.getElementById("sum-total-suits").textContent = totalSuits;
     document.getElementById("sum-qi").textContent = cQi;
     document.getElementById("sum-kuose").textContent = cKuose;
     document.getElementById("sum-qianhuan").textContent = cQianhuan;
   }
 
-  function setWholeSuitStatus(suit, value) {
-    if (!status[suit.id]) status[suit.id] = {};
-    for (const part of suit.parts || []) {
-      if (value === "none") {
-        delete status[suit.id][part.id];
-      } else {
-        status[suit.id][part.id] = value;
-      }
-    }
-    saveStatus(status);
+  function getFilteredSuits() {
+    if (!Array.isArray(suits)) return [];
+    const filter = currentFilter.trim().toLowerCase();
+    if (!filter) return suits.slice();
+
+    return suits.filter(s => {
+      const fullName = (s.name || "").toLowerCase();
+      const shortName = (s.shortName || "").toLowerCase();
+      const displayName = getSuitDisplayName(s).toLowerCase();
+      // displayName 一般就是 shortName 或 name，这里多加 fullName/shortName 是为了兼容
+      return (
+        fullName.includes(filter) ||
+        shortName.includes(filter) ||
+        displayName.includes(filter)
+      );
+    });
   }
+
 
   function renderAll() {
     const suitListEl = document.getElementById("suitList");
     suitListEl.innerHTML = "";
-
     if (!Array.isArray(suits) || suits.length === 0) {
-      suitListEl.textContent = "data.js 中暂无套装数据。";
-      updateSummary();
+      suitListEl.textContent = "data.js 中暂无套装数据";
+      updateSummary([]);
+      return;
+    }
+    const filteredSuits = getFilteredSuits();
+    if (filteredSuits.length === 0) {
+      suitListEl.textContent = "没有匹配的套装。";
+      updateSummary(filteredSuits);
       return;
     }
 
-    for (const suit of suits) {
+    for (const suit of filteredSuits) {
       const card = document.createElement("div");
       card.className = "suit-card";
 
-      // 总览
       const overview = document.createElement("div");
       overview.className = "suit-overview";
 
@@ -589,7 +917,20 @@
 
       const nameSpan = document.createElement("div");
       nameSpan.className = "suit-name";
-      nameSpan.textContent = suit.name;
+      nameSpan.textContent = getSuitExportName(suit);
+
+          
+      const displayName = getSuitDisplayName(suit);
+      const fullName = suit.name || "";
+          
+      // 清空内容
+      nameSpan.innerHTML = "";
+          
+      // 显示简称（若没有简称，就用原名）
+      const mainNameEl = document.createElement("span");
+      mainNameEl.textContent = displayName;
+      nameSpan.appendChild(mainNameEl);
+      
 
       const periodSpan = document.createElement("div");
       periodSpan.className = "suit-period";
@@ -629,7 +970,6 @@
       overview.appendChild(eventDiv);
       overview.appendChild(overviewMain);
 
-      // 展开区域
       const detailWrapper = document.createElement("div");
       detailWrapper.className = "detail-panel-wrapper";
 
@@ -639,7 +979,7 @@
       const bulkRow = document.createElement("div");
       bulkRow.className = "bulk-row";
       const bulkLabel = document.createElement("span");
-      bulkLabel.class = "bulk-label";
+      bulkLabel.className = "bulk-label";
       bulkLabel.textContent = "一键：";
       const bulkBtns = document.createElement("div");
       bulkBtns.className = "bulk-buttons";
@@ -652,21 +992,21 @@
         btn.addEventListener("click", (e) => {
           e.stopPropagation();
           setWholeSuitStatus(suit, type);
-
+          saveStatusForCurrentAccount();
           const chips = detailPanel.querySelectorAll(".part-status-group .chip");
           chips.forEach(chip => chip.classList.remove("checked"));
-
           if (type !== "none") {
             for (const part of suit.parts || []) {
-              const group = detailPanel.querySelector('.part-row[data-part-id="' + part.id + '"] .part-status-group');
+              const group = detailPanel.querySelector(
+                '.part-row[data-part-id="' + part.id + '"] .part-status-group'
+              );
               if (!group) continue;
-              const target = group.querySelector('.chip-' + type);
+              const target = group.querySelector(".chip-" + type);
               if (target) target.classList.add("checked");
             }
           }
-
           updateCardProgress(card, suit);
-          updateSummary();
+          updateSummary(filteredSuits);
         });
         return btn;
       }
@@ -704,9 +1044,7 @@
         function makeChip(type, label, extraClass) {
           const chip = document.createElement("div");
           chip.className = "chip " + extraClass;
-          if (current === type) {
-            chip.classList.add("checked");
-          }
+          if (current === type) chip.classList.add("checked");
           const ind = document.createElement("span");
           ind.className = "chip-indicator";
           const txt = document.createElement("span");
@@ -717,18 +1055,14 @@
           chip.addEventListener("click", function (e) {
             e.stopPropagation();
             const now = getPartStatus(suit.id, part.id);
-            const next = (now === type) ? "none" : type;
+            const next = now === type ? "none" : type;
             setPartStatus(suit.id, part.id, next);
-            saveStatus(status);
-
+            saveStatusForCurrentAccount();
             const siblings = group.querySelectorAll(".chip");
             siblings.forEach(c => c.classList.remove("checked"));
-            if (next !== "none") {
-              chip.classList.add("checked");
-            }
-
+            if (next !== "none") chip.classList.add("checked");
             updateCardProgress(card, suit);
-            updateSummary();
+            updateSummary(filteredSuits);
           });
 
           return chip;
@@ -751,14 +1085,11 @@
       detailPanel.appendChild(partsList);
       detailWrapper.appendChild(detailPanel);
 
-      // 点击总览，展开当前，收起其他
       overview.addEventListener("click", () => {
         const allWrappers = document.querySelectorAll(".detail-panel-wrapper");
         const isExpanded = detailWrapper.classList.contains("expanded");
         allWrappers.forEach(w => w.classList.remove("expanded"));
-        if (!isExpanded) {
-          detailWrapper.classList.add("expanded");
-        }
+        if (!isExpanded) detailWrapper.classList.add("expanded");
       });
 
       card.appendChild(overview);
@@ -768,9 +1099,315 @@
       updateCardProgress(card, suit);
     }
 
-    updateSummary();
+    updateSummary(filteredSuits);
   }
 
+  function buildDetailExportText() {
+    if (!Array.isArray(suits) || suits.length === 0) {
+      return "当前没有套装数据。";
+    }
+    let countFullQi = 0;
+    let countFullKuose = 0;
+    let countFullQianhuan = 0;
+    const detailLines = [];
+
+    suits.forEach((suit, idx) => {
+      const parts = suit.parts || [];
+      const st = status[suit.id] || {};
+      if (parts.length === 0) return;
+
+      let allQi = true;
+      let allKuose = true;
+      let allQianhuan = true;
+
+      const qiParts = [];
+      const kuoseParts = [];
+      const qianParts = [];
+
+      let hasAnyState = false; // 用来判断这套是否有任一部件被勾选
+
+      parts.forEach(part => {
+        const v = st[part.id];
+
+        if (v && v !== "none") {
+          hasAnyState = true;
+        }
+
+        if (v !== "qi") allQi = false;
+        if (v !== "kuose") allKuose = false;
+        if (v !== "qianhuan") allQianhuan = false;
+
+        if (v === "qi") qiParts.push(part.name || part.id);
+        else if (v === "kuose") kuoseParts.push(part.name || part.id);
+        else if (v === "qianhuan") qianParts.push(part.name || part.id);
+      });
+
+      if (!hasAnyState) {
+        return;
+      }
+      const exportName = getSuitExportName(suit);  // 夜河 或 夜色星河
+      const nameWrap = `【${exportName}】`;
+      let desc = "";
+
+      if (allQi) {
+        countFullQi++;
+        desc = "全齐";
+      } else if (allKuose) {
+        countFullQi++;
+        countFullKuose++;
+        desc = "全扩";
+      } else if (allQianhuan) {
+        countFullQi++;
+        countFullKuose++;
+        countFullQianhuan++;
+        desc = "全千幻";
+      } else {
+        const segs = [];
+        if (qiParts.length > 0) segs.push(`齐:${qiParts.join("、")}`);
+        if (kuoseParts.length > 0) segs.push(`扩:${kuoseParts.join("、")}`);
+        if (qianParts.length > 0) segs.push(`千幻:${qianParts.join("、")}`);
+        desc = segs.length ? segs.join("；") : "无";
+      }
+
+      detailLines.push(`${nameWrap}：${desc}`);
+    });
+
+    const lines = [];
+    lines.push(`${currentAccount}`);
+    if(countFullQi != 0) lines.push(`${countFullQi} 套齐/ 全扩:${countFullKuose} / 千幻:${countFullQianhuan} `);
+    lines.push("详情：");
+    if (!detailLines.length) lines.push("（暂无套装记录）");
+    else lines.push(...detailLines);
+    return lines.join("\n");
+  }
+
+  function showTextDialog(title, text) {
+    const mask = document.getElementById("textDialog");
+    const textarea = document.getElementById("textDialogTextarea");
+    const titleEl = document.getElementById("textDialogTitle");
+    titleEl.textContent = title;
+    textarea.value = text;
+    mask.style.display = "flex";
+    textarea.focus();
+    textarea.select();
+  }
+
+  document.getElementById("textDialogCloseBtn").addEventListener("click", () => {
+    document.getElementById("textDialog").style.display = "none";
+  });
+  document.getElementById("textDialog").addEventListener("click", (e) => {
+    if (e.target.id === "textDialog") document.getElementById("textDialog").style.display = "none";
+  });
+
+  document.getElementById("exportDetailBtn").addEventListener("click", () => {
+    const text = buildDetailExportText();
+    showTextDialog(`汇总详情 - 账号：${currentAccount}`, text);
+  });
+
+  const jsonDialog = document.getElementById("jsonDialog");
+  const jsonTextarea = document.getElementById("jsonTextarea");
+  const jsonDialogTitle = document.getElementById("jsonDialogTitle");
+
+  document.getElementById("jsonDialogCloseBtn").addEventListener("click", () => {
+    jsonDialog.style.display = "none";
+  });
+  document.getElementById("jsonDialog").addEventListener("click", (e) => {
+    if (e.target.id === "jsonDialog") jsonDialog.style.display = "none";
+  });
+
+  document.getElementById("exportJsonBtn").addEventListener("click", () => {
+    if (!currentAccount) {
+      alert("请先选择一个账号。");
+      return;
+    }
+    jsonDialogMode = "export";
+    try { jsonTextarea.value = JSON.stringify(status, null, 2); }
+    catch { jsonTextarea.value = "导出失败：status 无法序列化。"; }
+    jsonDialogTitle.textContent = `导出数据(JSON) - 账号：${currentAccount}`;
+    jsonDialog.style.display = "flex";
+    jsonTextarea.focus();
+    jsonTextarea.select();
+  });
+
+  document.getElementById("importJsonBtn").addEventListener("click", () => {
+    if (!currentAccount) {
+      alert("请先选择一个账号。");
+      return;
+    }
+    jsonDialogMode = "import";
+    jsonTextarea.value = "";
+    jsonTextarea.placeholder = "将之前导出的 JSON 粘贴到这里，然后点击“确定”导入（仅影响当前账号）。";
+    jsonDialogTitle.textContent = `导入数据(JSON) - 账号：${currentAccount}`;
+    jsonDialog.style.display = "flex";
+    jsonTextarea.focus();
+  });
+
+  document.getElementById("jsonDialogConfirmBtn").addEventListener("click", () => {
+    if (jsonDialogMode === "import") {
+      const text = jsonTextarea.value.trim();
+      if (!text) {
+        alert("请先粘贴要导入的 JSON 数据。");
+        return;
+      }
+      try {
+        const obj = JSON.parse(text);
+        if (!obj || typeof obj !== "object") {
+          alert("JSON 格式不正确：需要是一个对象。");
+          return;
+        }
+        status = obj;
+        saveStatusForCurrentAccount();
+        jsonDialog.style.display = "none";
+        renderAll();
+        alert("导入成功，仅当前账号的数据已更新。");
+      } catch (e) {
+        alert("解析 JSON 失败，请检查内容是否完整。\n错误：" + e.message);
+      }
+    } else {
+      jsonDialog.style.display = "none";
+    }
+  });
+
+  function refreshAccountSelectOptions() {
+    const select = document.getElementById("accountSelect");
+    select.innerHTML = "";
+    Object.keys(allStatus).forEach(name => {
+      const opt = document.createElement("option");
+      opt.value = name;
+      opt.textContent = name;
+      select.appendChild(opt);
+    });
+  }
+
+  function switchAccount(newAccount) {
+    // 先保存当前账号再切换（注意：这里不会把 status 初始化为空）
+    if (currentAccount) {
+      allStatus[currentAccount] = status;
+      saveAllStatus();
+    }
+    currentAccount = newAccount;
+    status = allStatus[currentAccount] || {};
+    renderAll();
+  }
+
+  function initAccountSystem() {
+    const names = Object.keys(allStatus);
+    if (names.length === 0) {
+      currentAccount = "默认账号";
+      allStatus[currentAccount] = {};
+      saveAllStatus();
+    } else {
+      currentAccount = names[0];
+    }
+    const select = document.getElementById("accountSelect");
+    refreshAccountSelectOptions();
+    select.value = currentAccount;
+    status = allStatus[currentAccount] || {};
+
+    select.addEventListener("change", () => {
+      const newAcc = select.value;
+      if (newAcc && newAcc !== currentAccount) switchAccount(newAcc);
+    });
+
+    document.getElementById("addAccountBtn").addEventListener("click", () => {
+      const name = prompt("输入新账号名称：");
+      if (!name) return;
+      if (allStatus[name]) {
+        alert("该账号名称已存在");
+        return;
+      }
+      // 保存当前账号
+      if (currentAccount) {
+        allStatus[currentAccount] = status;
+        saveAllStatus();
+      }
+      // 新账号初始为空
+      allStatus[name] = {};
+      currentAccount = name;
+      status = allStatus[currentAccount];
+      refreshAccountSelectOptions();
+      select.value = currentAccount;
+      renderAll();
+    });
+
+    document.getElementById("renameAccountBtn").addEventListener("click", () => {
+      if (!currentAccount) return;
+      const newName = prompt("输入新的账号名称：", currentAccount);
+      if (!newName || newName === currentAccount) return;
+      if (allStatus[newName]) {
+        alert("该名称已存在，请换一个。");
+        return;
+      }
+      allStatus[newName] = allStatus[currentAccount];
+      delete allStatus[currentAccount];
+      currentAccount = newName;
+      saveAllStatus();
+      refreshAccountSelectOptions();
+      select.value = currentAccount;
+      renderAll();
+    });
+
+    document.getElementById("deleteAccountBtn").addEventListener("click", () => {
+      const namesNow = Object.keys(allStatus);
+      if (!currentAccount) return;
+      if (namesNow.length <= 1) {
+        alert("至少保留一个账号，不能全部删除。");
+        return;
+      }
+      if (!confirm(`确定要删除账号「${currentAccount}」吗？该账号的记录会在本机被移除。`)) return;
+      delete allStatus[currentAccount];
+      saveAllStatus();
+      const newNames = Object.keys(allStatus);
+      currentAccount = newNames[0];
+      status = allStatus[currentAccount] || {};
+      refreshAccountSelectOptions();
+      select.value = currentAccount;
+      renderAll();
+    });
+  }
+
+  document.getElementById("searchInput").addEventListener("input", (e) => {
+    currentFilter = e.target.value || "";
+    renderAll();
+  });
+    // 导出总览图片（使用导出专用 DOM）
+  document.getElementById("exportImageBtn").addEventListener("click", () => {
+    const filtered = getFilteredSuits();
+    if (!filtered || !filtered.length) {
+      alert("当前没有需要导出的套装总览（可能是没有数据或搜索结果为空）。");
+      return;
+    }
+
+    // 构建隐藏导出区域
+    buildExportArea();
+
+    const exportArea = document.getElementById("exportArea");
+    if (!exportArea) {
+      alert("导出区域不存在，请检查 HTML 中是否包含 #exportArea。");
+      return;
+    }
+
+    // 用 html2canvas 截图隐藏区域
+    html2canvas(exportArea, {
+      backgroundColor: null, // 使用自身背景渐变
+      scale: 2,              // 提高清晰度
+      useCORS: true
+    }).then(canvas => {
+      const link = document.createElement("a");
+      const now = new Date();
+      const dateStr = now.toISOString().slice(0,10);
+      const accountName = currentAccount || "未命名账号";
+      link.download = `以闪亮之名_套装总览_${accountName}_${dateStr}.png`;
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    }).catch(err => {
+      console.error(err);
+      alert("导出图片失败，请稍后重试。");
+    });
+  });
+
+
+  initAccountSystem();
   renderAll();
 </script>
 </body>
